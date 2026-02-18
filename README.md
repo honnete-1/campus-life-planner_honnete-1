@@ -1,9 +1,9 @@
-# Campus Life Planner - M3 Submission
+# Campus Life Planner - M4 Submission
 
-## Milestone 3: Forms & Regex Validation
+## Milestone 4: Render + Sort + Regex Search
 
 **Status:** ✅ Complete  
-**Weight:** 15%
+**Weight:** 20%
 
 ---
 
@@ -13,175 +13,243 @@
 ```
 campus-planner/
 ├── index.html           ✅ Main app
-├── tests.html           🆕 Regex test page (22 tests)
+├── tests.html           ✅ Regex tests
+├── seed.json            🆕 Sample data (12 tasks)
 ├── styles/
 │   ├── main.css        ✅ Base styles
 │   └── layout.css      ✅ Responsive layout
 ├── scripts/
-│   ├── validators.js   🆕 5 regex patterns + validation functions
-│   └── app.js          ✅ Updated with form validation
+│   ├── validators.js   ✅ Regex patterns
+│   ├── state.js        🆕 Task data management
+│   ├── storage.js      🆕 localStorage functions
+│   ├── search.js       🆕 Search, filter, sort
+│   ├── ui.js           🆕 Render tasks and stats
+│   └── app.js          ✅ Updated with M4 features
 └── README.md           ✅ This file
 ```
 
 ---
 
-## Features Implemented (M3)
+## Features Implemented (M4)
 
-### ✅ 1. Regex Validation Patterns (5 total)
+### ✅ 1. Task Rendering
+- Tasks display in **table view** (desktop) and **card view** (mobile)
+- Shows: title, due date, duration, tag
+- Edit and Delete buttons on each task
+- Empty state message when no tasks
 
-**1. Title - No extra spaces**
-- Pattern: `/^\S(?:.*\S)?$/`
-- Valid: `"Study for midterm"`, `"Team meeting"`
-- Invalid: `" extra space"`, `"trailing space "`, `"double  space"`
+### ✅ 2. Add/Edit/Delete Tasks (CRUD)
+**Add New Task:**
+- Fill form and click "Save Task"
+- Validates before saving
+- Automatically saves to localStorage
+- Switches to tasks view after saving
 
-**2. Duration - Positive number**
-- Pattern: `/^(0|[1-9]\d*)(\.\d{1,2})?$/`
-- Valid: `"90"`, `"120.5"`, `"0"`
-- Invalid: `"01"` (leading zero), `"-5"` (negative), `"1.234"` (too many decimals)
+**Edit Existing Task:**
+- Click "Edit" button on any task
+- Form fills with task data
+- Button changes to "Update Task"
+- Updates task and saves
 
-**3. Date - YYYY-MM-DD format**
-- Pattern: `/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/`
-- Valid: `"2025-10-15"`, `"2025-01-01"`
-- Invalid: `"2025-13-01"` (bad month), `"25-10-15"` (2-digit year)
+**Delete Task:**
+- Click "Delete" button
+- Confirmation dialog appears
+- Task removed and UI updates
 
-**4. Tag - Letters, spaces, hyphens**
-- Pattern: `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/`
-- Valid: `"Academic"`, `"Work Study"`, `"Self-care"`
-- Invalid: `"Tag123"` (numbers), `" Academic"` (leading space)
+### ✅ 3. Sorting
+Sort tasks by:
+- **Due Date** (Newest/Oldest)
+- **Title** (A-Z / Z-A)
+- **Duration** (Shortest/Longest)
 
-**5. ADVANCED - Duplicate Word Detection**
-- Pattern: `/\b(\w+)\s+\1\b/i`
-- Uses backreference `\1` to match the same word twice
-- Catches: `"the the meeting"`, `"do do this"`
-- Valid: `"study hall"` (different words)
+Dropdown in "My Tasks" section controls sorting.
 
-### ✅ 2. Form Validation
+### ✅ 4. Regex Search with Highlighting
+**Regular Search:**
+- Type any regex pattern in search box
+- Filters tasks by matching title, tag, or date
+- Invalid regex won't crash (try/catch protection)
+- Case insensitive by default (toggle available)
 
-**Real-time Validation:**
-- Validates each field when user clicks away (blur event)
-- Shows error messages in red below each field
-- Sets `aria-invalid="true"` for screen readers
-- Duration field shows conversion (e.g., `"120 mins → 2h"`)
-- Title field automatically removes extra spaces
+**Special Commands:**
+- `@tag:Academic` - Filter by specific tag
+- `!overdue` - Show only overdue tasks
 
-**Form Submission:**
-- Validates all fields before allowing submit
-- Shows error count if there are problems
-- Moves focus to first error field
-- Shows success message when all fields are valid
-- Form clears after 2 seconds on success
+**Highlighting:**
+- Matches shown with `<mark>` tags (yellow highlight)
+- Works in both table and card views
+- Doesn't break with complex patterns
 
-**Duplicate Word Warning:**
-- Shows orange warning (not an error) if duplicate words detected
-- Still allows form submission with warning
+**Example Searches:**
+- `study` - Find all tasks with "study"
+- `\b\d{2}:\d{2}\b` - Find time patterns like "14:30"
+- `@tag:Health` - Show only Health tasks
+- `!overdue` - Show overdue tasks
 
-### ✅ 3. Tests Page (tests.html)
+### ✅ 5. localStorage Persistence
+- Tasks automatically saved when added/edited/deleted
+- Loads tasks on page refresh
+- Data persists between sessions
+- Clear all data option in Settings (M6)
 
-**22 Test Cases Total:**
-- Title: 5 tests
-- Duration: 5 tests
-- Date: 5 tests
-- Tag: 5 tests
-- Duplicate Word: 4 tests (advanced pattern)
+### ✅ 6. Dashboard Stats (Dynamic)
+Updates automatically:
+- **Total Tasks** - Count of all tasks
+- **Total Time** - Sum of all durations
+- **Top Tag** - Most used tag
+- **This Week** - Tasks due in next 7 days
 
-**Test Page Features:**
-- Shows each pattern with its regex
-- Table showing input, expected result, actual result, pass/fail
-- Summary at bottom: Total/Passed/Failed
-- Tests run automatically when page loads
-- Console shows test results
-
-### ✅ 4. Validation Functions
-
-Each field has its own validation function that returns `{ valid: boolean, error: string }` or `{ valid: boolean, warning: string }` for warnings.
-
-**Additional Checks:**
-- Title: Min 3 chars, max 100 chars
-- Duration: Must be > 0, max 1440 minutes (24 hours)
-- Date: Checks if it's a real date (no Feb 30th)
-- Tag: Max 30 characters
+**Weekly Cap:**
+- Shows progress bar
+- Calculates hours used this week
+- Changes color: green → yellow → red
+- Live region announces status
+- Goes to "assertive" when cap exceeded
 
 ---
 
-## How to Test M3
+## How to Test M4
 
-### Test 1: Open tests.html
-1. Open `tests.html` in browser
-2. All 22 tests should run automatically
-3. Should see 22/22 tests PASSED
-4. Check console for results
-
-### Test 2: Test Form Validation
+### Test 1: Add Tasks
 1. Open `index.html`
 2. Click "Add Task" tab
-3. Try these invalid inputs:
+3. Fill in:
+   - Title: "Test task"
+   - Date: Pick any future date
+   - Duration: "60"
+   - Tag: "Academic"
+4. Click "Save Task"
+5. Should switch to "My Tasks" and show your task
 
-```
-Title:    " space"       → Error shown
-Duration: "-5"           → Error shown
-Date:     "2025-13-01"   → Error shown
-Tag:      "Tag123"       → Error shown
-```
+### Test 2: Edit Task
+1. In "My Tasks", click "Edit" on any task
+2. Form fills with task data
+3. Change title to "Updated task"
+4. Click "Update Task"
+5. Task updates in list
 
-4. Try valid inputs:
+### Test 3: Delete Task
+1. Click "Delete" on any task
+2. Confirm dialog appears
+3. Click "OK"
+4. Task removed from list
 
-```
-Title:    "Study for exam"
-Duration: "120"
-Date:     "2025-10-15"
-Tag:      "Academic"
-```
+### Test 4: Sorting
+1. Go to "My Tasks"
+2. Change "Sort by" dropdown
+3. Try each option:
+   - Due Date (Newest/Oldest)
+   - Title (A-Z/Z-A)
+   - Duration (Shortest/Longest)
+4. Tasks reorder automatically
 
-5. Click "Save Task" → Success message
+### Test 5: Search
+1. In search box, type: `academic`
+2. Should filter to tasks containing "academic"
+3. Matches highlighted in yellow
+4. Try: `@tag:Health` - Shows only Health tasks
+5. Try: `!overdue` - Shows overdue tasks
+6. Clear search - All tasks return
 
-### Test 3: Duplicate Word Warning
-1. In Title field, type: `"the the meeting"`
-2. Click away from field
-3. Should see orange warning (not red error)
-4. Form can still be submitted
+### Test 6: Persistence
+1. Add a few tasks
+2. Refresh the page (F5)
+3. Tasks still there!
+4. Check localStorage in DevTools
 
-### Test 4: Duration Conversion
-1. Type `"90"` in Duration field
-2. See `"≈ 1h 30m"` appear below
-3. Type `"120"` → See `"≈ 2h"`
-4. Type `"45"` → See `"≈ 45m"`
+### Test 7: Dashboard Updates
+1. Add/delete tasks
+2. Watch dashboard stats update
+3. Add tasks for this week
+4. Watch weekly cap progress bar fill up
 
 ---
 
-## M3 Checklist - All Complete
+## Seed Data
 
-- ✅ 5 regex patterns (4 required + 1 extra)
-- ✅ 1 advanced pattern (backreference)
-- ✅ tests.html with 22 test cases
-- ✅ Real-time form validation
-- ✅ Clear error messages
-- ✅ aria-invalid for accessibility
-- ✅ Focus management
-- ✅ Auto-sanitization
+Load sample tasks quickly:
+1. Open browser console (F12)
+2. Go to Application tab
+3. Find localStorage
+4. Or manually add tasks through the form
+
+The `seed.json` file has 12 sample tasks you can reference.
+
+---
+
+## M4 Checklist - All Complete
+
+- ✅ Task rendering (table + cards)
+- ✅ Add new tasks
+- ✅ Edit existing tasks
+- ✅ Delete tasks with confirmation
+- ✅ Sort by date/title/duration
+- ✅ Regex search with highlighting
+- ✅ Special search commands (@tag, !overdue)
+- ✅ <mark> tags for highlighting
+- ✅ localStorage persistence
+- ✅ Dashboard stats update dynamically
+- ✅ Weekly cap calculation
+- ✅ 12 diverse records in seed.json
 
 ---
 
 ## What's NOT Included (Coming Later)
 
-❌ Regex search (M4)  
-❌ Sort/filter (M4)  
-❌ Add/Edit/Delete tasks (M4)  
-❌ LocalStorage (M6)  
-❌ Import/Export (M6)  
-❌ Stats calculation (M5)  
+❌ Import/Export JSON (M6)  
+❌ Settings page functionality (M6)  
+❌ Animation/transitions (M7)  
+❌ Final polish and demo video (M7)  
+
+---
+
+## Code Structure
+
+**state.js** - Manages tasks in memory
+- Simple array of task objects
+- Add/update/delete functions
+- ID generation
+
+**storage.js** - localStorage operations
+- Save/load tasks
+- Simple error handling
+- Settings storage (for M6)
+
+**search.js** - Search and sort logic
+- Safe regex compilation (try/catch)
+- Filter by search query
+- Special command parsing
+- Sort functions
+- Highlight with <mark>
+
+**ui.js** - Rendering
+- Render table and cards
+- Attach event listeners
+- Update dashboard stats
+- Cap progress calculation
+
+**app.js** - Main coordinator
+- Loads everything on start
+- Wires up search/sort
+- Handles form submission
+- Edit mode management
 
 ---
 
 ## Notes for Grader
 
-**To verify M3 quickly:**
-1. Open `tests.html` → See 22/22 pass ✅
-2. Open `index.html` → Go to Add Task → Try invalid data → See errors ✅
-3. Try valid data → See success message ✅
+**To quickly verify M4:**
+1. Open `index.html` ✅
+2. Add a task → See it appear ✅
+3. Edit a task → See it update ✅
+4. Delete a task → See it disappear ✅
+5. Try search: `academic` → See filtering + highlighting ✅
+6. Change sort → See tasks reorder ✅
+7. Refresh page → Tasks still there ✅
 
-All regex patterns work correctly and form validation is fully functional.
+All CRUD operations work, search highlights matches, sorting works, and data persists!
 
 ---
 
-**M3 Complete ✅**  
-Ready for M4: Render + Sort + Regex Search
+**M4 Complete ✅**  
+Ready for M5: Stats + Cap/Targets
