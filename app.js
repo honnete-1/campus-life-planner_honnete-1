@@ -585,38 +585,69 @@ function initSettings() {
         try {
           const imported = JSON.parse(event.target.result);
           
-          // Basic validation
+          // Validate: must be an array
           if (!Array.isArray(imported)) {
-            alert('Invalid file: must be an array of tasks');
+            alert('Invalid file: Data must be an array of tasks');
+            importFile.value = '';
             return;
           }
           
-          // Check if tasks have required fields
-          const valid = imported.every(task => 
-            task.title && task.dueDate && task.duration && task.tag
-          );
+          // Validate: check each task has required fields
+          const errors = [];
+          imported.forEach((task, index) => {
+            if (!task.title || typeof task.title !== 'string') {
+              errors.push(`Task ${index + 1}: Missing or invalid title`);
+            }
+            if (!task.dueDate || !/^\d{4}-\d{2}-\d{2}$/.test(task.dueDate)) {
+              errors.push(`Task ${index + 1}: Missing or invalid date`);
+            }
+            if (!task.duration || typeof task.duration !== 'number') {
+              errors.push(`Task ${index + 1}: Missing or invalid duration`);
+            }
+            if (!task.tag || typeof task.tag !== 'string') {
+              errors.push(`Task ${index + 1}: Missing or invalid tag`);
+            }
+          });
           
-          if (!valid) {
-            alert('Invalid file: tasks missing required fields');
+          if (errors.length > 0) {
+            alert('Import failed:\n\n' + errors.slice(0, 5).join('\n') + 
+                  (errors.length > 5 ? `\n...and ${errors.length - 5} more errors` : ''));
+            importFile.value = '';
             return;
           }
           
-          // Confirm before replacing
-          if (confirm(`Import ${imported.length} tasks? This will replace existing data.`)) {
-            setTasks(imported);
-            saveTasks(imported);
+          // Add missing fields (id, timestamps) if not present
+          const fixedTasks = imported.map(task => ({
+            id: task.id || `task_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+            title: task.title,
+            dueDate: task.dueDate,
+            duration: task.duration,
+            tag: task.tag,
+            createdAt: task.createdAt || new Date().toISOString(),
+            updatedAt: task.updatedAt || new Date().toISOString()
+          }));
+          
+          // Show preview and confirm
+          const message = `Import ${fixedTasks.length} tasks?\n\nThis will REPLACE all existing tasks.\n\nCurrent tasks: ${getTasks().length}\nNew tasks: ${fixedTasks.length}`;
+          
+          if (confirm(message)) {
+            setTasks(fixedTasks);
+            saveTasks(fixedTasks);
             loadAndRenderTasks();
             
-            settingsStatus.textContent = `Imported ${imported.length} tasks successfully!`;
-            setTimeout(() => settingsStatus.textContent = '', 3000);
+            settingsStatus.textContent = `✅ Successfully imported ${fixedTasks.length} tasks!`;
+            setTimeout(() => settingsStatus.textContent = '', 4000);
+            
+            console.log('Imported tasks:', fixedTasks.length);
           }
         } catch (error) {
-          alert('Error reading file: ' + error.message);
+          alert('Error reading file:\n\n' + error.message + '\n\nPlease check that the file is valid JSON.');
+          console.error('Import error:', error);
         }
       };
       
       reader.readAsText(file);
-      importFile.value = ''; // Reset input
+      importFile.value = ''; // Reset file input
     });
   }
   

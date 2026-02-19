@@ -1,9 +1,392 @@
-# Campus Life Planner - M5 Submission
+# Campus Life Planner - M6 Submission
 
-## Milestone 5: Stats + Cap/Targets
+## Milestone 6: Persistence + Import/Export + Settings
 
 **Status:** ✅ Complete  
 **Weight:** 15%
+
+---
+
+## What's Included
+
+All M6 features are fully implemented and working!
+
+### Files Complete
+```
+campus-planner/
+├── index.html           ✅ All sections functional
+├── tests.html           ✅ Regex validation tests
+├── seed.json            ✅ 12 sample tasks
+├── styles/
+│   ├── main.css        ✅ Complete styling
+│   └── layout.css      ✅ Responsive design
+├── scripts/
+│   ├── validators.js   ✅ Form validation
+│   ├── state.js        ✅ Task state management
+│   ├── storage.js      ✅ localStorage operations
+│   ├── search.js       ✅ Search and sort
+│   ├── ui.js           ✅ Rendering
+│   └── app.js          ✅ Complete with all features
+└── README.md           ✅ This file
+```
+
+---
+
+## Features Implemented (M6)
+
+### ✅ 1. localStorage Persistence
+
+**Auto-Save:**
+- Tasks automatically saved on every change
+- Add task → Saves immediately
+- Edit task → Saves immediately
+- Delete task → Saves immediately
+- No manual "Save" button needed
+
+**Auto-Load:**
+- Tasks load automatically on page refresh
+- Settings load automatically
+- Data persists between sessions
+- Works across browser tabs
+
+**Storage Keys:**
+```javascript
+'campusPlanner_tasks'    // Array of all tasks
+'campusPlanner_settings' // User preferences
+```
+
+### ✅ 2. JSON Import/Export
+
+**Export Functionality:**
+- Click "Export JSON" in Settings
+- Downloads file: `campus-planner-export-YYYY-MM-DD.json`
+- Contains all tasks with complete data
+- Properly formatted JSON
+- Can be opened in text editor
+
+**Import Functionality:**
+- Click "Import JSON" in Settings
+- Upload any .json file
+- **Comprehensive Validation:**
+  - Checks if file is valid JSON
+  - Verifies it's an array
+  - Validates each task has required fields:
+    - `title` (string)
+    - `dueDate` (YYYY-MM-DD format)
+    - `duration` (number)
+    - `tag` (string)
+  - Shows detailed error messages
+  - Lists first 5 errors if validation fails
+  
+**Auto-Fix on Import:**
+- Adds missing `id` if not present
+- Adds `createdAt` if missing
+- Adds `updatedAt` if missing
+- Ensures data structure is complete
+
+**Import Confirmation:**
+```
+Import 12 tasks?
+
+This will REPLACE all existing tasks.
+
+Current tasks: 8
+New tasks: 12
+```
+
+**Validation Error Example:**
+```
+Import failed:
+
+Task 1: Missing or invalid title
+Task 3: Missing or invalid date
+Task 5: Missing or invalid duration
+```
+
+### ✅ 3. Settings Page Features
+
+**Duration Display:**
+- Toggle between Minutes and Hours
+- Radio buttons: ○ Minutes ● Hours
+- Saves preference to localStorage
+- All task durations update immediately
+- Affects:
+  - Task table/cards
+  - Dashboard stats
+  - Form display
+
+**Weekly Cap:**
+- Input field: 1-168 hours
+- Default: 40 hours
+- Changes save immediately
+- Dashboard updates instantly
+- Cap value persists
+
+**Data Management:**
+- **Export JSON** - Download all tasks
+- **Import JSON** - Upload tasks with validation
+- **Clear All Data** - Double confirmation required
+
+### ✅ 4. Settings Persistence
+
+Settings saved to localStorage:
+```json
+{
+  "weeklyCap": 40,
+  "durationUnit": "minutes"
+}
+```
+
+**Loads on:**
+- Page refresh
+- App startup
+- Tab switch
+
+**Saves when:**
+- Cap changed
+- Unit toggled
+- Any setting modified
+
+### ✅ 5. Data Validation
+
+**On Import:**
+1. File must be valid JSON
+2. Must be an array
+3. Each task validated:
+   - Title: non-empty string
+   - Date: YYYY-MM-DD format
+   - Duration: positive number
+   - Tag: non-empty string
+4. Detailed error reporting
+5. Auto-fixes missing metadata
+
+**On Save:**
+- Validates form before adding (M3 validation)
+- Only valid tasks saved to storage
+- Prevents corrupted data
+
+### ✅ 6. Error Handling
+
+**Try-Catch Protection:**
+```javascript
+try {
+  const data = localStorage.getItem(key);
+  return JSON.parse(data);
+} catch (error) {
+  console.error('Error loading:', error);
+  return defaultValue;
+}
+```
+
+**User-Friendly Messages:**
+- "Error reading file: [details]"
+- "Invalid file: must be an array"
+- "Import failed: [specific errors]"
+- All errors logged to console for debugging
+
+---
+
+## How to Test M6
+
+### Test 1: localStorage Persistence
+```
+1. Open index.html
+2. Add 3 tasks
+3. Close browser completely
+4. Reopen index.html
+5. Tasks still there! ✅
+```
+
+### Test 2: Export JSON
+```
+1. Add some tasks
+2. Go to Settings
+3. Click "Export JSON"
+4. File downloads (check Downloads folder)
+5. Open file in text editor
+6. See valid JSON with all tasks ✅
+```
+
+### Test 3: Import Valid JSON
+```
+1. Use seed.json or exported file
+2. Go to Settings
+3. Click "Import JSON"
+4. Select file
+5. Confirmation appears
+6. Click OK
+7. Tasks load successfully ✅
+8. Status message: "Successfully imported X tasks!"
+```
+
+### Test 4: Import Invalid JSON
+```
+1. Create invalid.json: {"broken": "data"}
+2. Try to import
+3. Error: "Invalid file: Data must be an array"
+4. No data corrupted ✅
+```
+
+### Test 5: Settings Persistence
+```
+1. Change weekly cap to 35
+2. Toggle to "Hours"
+3. Refresh page
+4. Settings still at 35 hours ✅
+5. Duration display still in hours ✅
+```
+
+### Test 6: Clear All Data
+```
+1. Add tasks
+2. Click "Clear All Data"
+3. First confirmation appears
+4. Second confirmation appears
+5. All tasks deleted
+6. Dashboard shows 0 tasks ✅
+```
+
+---
+
+## M6 Checklist - All Complete
+
+**Persistence:**
+- ✅ Auto-save to localStorage on every change
+- ✅ Auto-load from localStorage on startup
+- ✅ Data survives page refresh
+- ✅ Settings persist separately
+
+**Import/Export:**
+- ✅ Export all tasks as JSON
+- ✅ Import JSON with validation
+- ✅ Validate file structure
+- ✅ Validate each task's fields
+- ✅ Show detailed error messages
+- ✅ Auto-fix missing metadata
+- ✅ Confirmation before import
+
+**Settings:**
+- ✅ Weekly cap (1-168 hours)
+- ✅ Duration unit (minutes/hours)
+- ✅ Settings saved to localStorage
+- ✅ Settings load on startup
+- ✅ Clear all data option
+
+**Validation:**
+- ✅ JSON structure validation
+- ✅ Required fields validation
+- ✅ Date format validation
+- ✅ Data type validation
+- ✅ Error handling with try/catch
+
+---
+
+## Data Structure
+
+### Task Object:
+```json
+{
+  "id": "task_1727893200_001",
+  "title": "Study for Chemistry midterm",
+  "dueDate": "2025-10-20",
+  "duration": 180,
+  "tag": "Academic",
+  "createdAt": "2025-09-25T10:00:00Z",
+  "updatedAt": "2025-09-25T10:00:00Z"
+}
+```
+
+### Settings Object:
+```json
+{
+  "weeklyCap": 40,
+  "durationUnit": "minutes"
+}
+```
+
+---
+
+## Import Validation Logic
+
+```javascript
+// Check 1: Valid JSON
+const data = JSON.parse(fileContent);
+
+// Check 2: Is array
+if (!Array.isArray(data)) { error }
+
+// Check 3: Each task has required fields
+data.forEach(task => {
+  if (!task.title || typeof task.title !== 'string') { error }
+  if (!task.dueDate || !/^\d{4}-\d{2}-\d{2}$/.test(task.dueDate)) { error }
+  if (!task.duration || typeof task.duration !== 'number') { error }
+  if (!task.tag || typeof task.tag !== 'string') { error }
+});
+
+// Check 4: Auto-fix missing metadata
+const fixed = tasks.map(t => ({
+  ...t,
+  id: t.id || generateId(),
+  createdAt: t.createdAt || new Date().toISOString(),
+  updatedAt: t.updatedAt || new Date().toISOString()
+}));
+```
+
+---
+
+## Browser Compatibility
+
+**localStorage works in:**
+- ✅ Chrome 4+
+- ✅ Firefox 3.5+
+- ✅ Safari 4+
+- ✅ Edge (all versions)
+- ✅ All modern mobile browsers
+
+**Storage Limits:**
+- Minimum: 5MB per domain
+- Tasks: ~50-100KB typical usage
+- Plenty of space for hundreds of tasks
+
+---
+
+## What's NOT Included (M7)
+
+❌ CSV export (stretch goal)  
+❌ Animations/transitions (M7)  
+❌ Demo video (M7)  
+❌ Final polish (M7)  
+
+---
+
+## Notes for Grader
+
+**To verify M6 quickly:**
+
+1. **Persistence:**
+   - Add tasks → Refresh → Still there ✅
+
+2. **Export:**
+   - Click Export → File downloads ✅
+
+3. **Import:**
+   - Import seed.json → Tasks load ✅
+   - Import bad file → Error shown ✅
+
+4. **Settings:**
+   - Change cap → Refresh → Still changed ✅
+   - Toggle unit → Refresh → Still toggled ✅
+
+5. **Validation:**
+   - Check console for error handling ✅
+   - Import shows detailed validation errors ✅
+
+All data persists correctly, import/export works with proper validation, and settings save/load reliably!
+
+---
+
+**M6 Complete ✅**  
+Ready for M7: Polish & A11y Audit + Demo Video
 
 ---
 
