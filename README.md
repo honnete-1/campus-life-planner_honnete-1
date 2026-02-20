@@ -305,8 +305,6 @@ All features have >95% browser support.
 
 ## Demo Video
 
-**Link:** [YouTube - Unlisted]
-
 **Contents:**
 - Add/edit/delete tasks
 - Regex search with highlighting
@@ -317,7 +315,6 @@ All features have >95% browser support.
 - Import/export
 - Accessibility features
 
-**Duration:** 2-3 minutes
 
 ---
 
