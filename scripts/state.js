@@ -5,7 +5,7 @@ let tasks = [];
 let currentFilter = '';
 let currentSort = 'date-desc';
 
-// Generate unique ID for new tasks
+// Generate unique ID for new tasks 
 function generateId() {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 1000);
