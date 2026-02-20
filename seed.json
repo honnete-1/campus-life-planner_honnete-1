@@ -1,0 +1,110 @@
+[
+  {
+    "id": "task_1727893200_001",
+    "title": "Study for Chemistry midterm",
+    "dueDate": "2025-10-20",
+    "duration": 180,
+    "tag": "Academic",
+    "createdAt": "2025-09-25T10:00:00Z",
+    "updatedAt": "2025-09-25T10:00:00Z"
+  },
+  {
+    "id": "task_1727893200_002",
+    "title": "Complete programming assignment",
+    "dueDate": "2025-10-18",
+    "duration": 240,
+    "tag": "Academic",
+    "createdAt": "2025-09-25T10:05:00Z",
+    "updatedAt": "2025-09-25T10:05:00Z"
+  },
+  {
+    "id": "task_1727893200_003",
+    "title": "Gym workout",
+    "dueDate": "2025-10-15",
+    "duration": 60,
+    "tag": "Health",
+    "createdAt": "2025-09-25T10:10:00Z",
+    "updatedAt": "2025-09-25T10:10:00Z"
+  },
+  {
+    "id": "task_1727893200_004",
+    "title": "Team project meeting",
+    "dueDate": "2025-10-16",
+    "duration": 90,
+    "tag": "Work",
+    "createdAt": "2025-09-25T10:15:00Z",
+    "updatedAt": "2025-09-25T10:15:00Z"
+  },
+  {
+    "id": "task_1727893200_005",
+    "title": "Lunch with friends at cafeteria",
+    "dueDate": "2025-10-14",
+    "duration": 45,
+    "tag": "Social",
+    "createdAt": "2025-09-25T10:20:00Z",
+    "updatedAt": "2025-09-25T10:20:00Z"
+  },
+  {
+    "id": "task_1727893200_006",
+    "title": "Dentist appointment",
+    "dueDate": "2025-10-22",
+    "duration": 60,
+    "tag": "Personal",
+    "createdAt": "2025-09-25T10:25:00Z",
+    "updatedAt": "2025-09-25T10:25:00Z"
+  },
+  {
+    "id": "task_1727893200_007",
+    "title": "Read chapter 5 for History class",
+    "dueDate": "2025-10-17",
+    "duration": 120,
+    "tag": "Academic",
+    "createdAt": "2025-09-25T10:30:00Z",
+    "updatedAt": "2025-09-25T10:30:00Z"
+  },
+  {
+    "id": "task_1727893200_008",
+    "title": "Practice piano",
+    "dueDate": "2025-10-19",
+    "duration": 45,
+    "tag": "Personal",
+    "createdAt": "2025-09-25T10:35:00Z",
+    "updatedAt": "2025-09-25T10:35:00Z"
+  },
+  {
+    "id": "task_1727893200_009",
+    "title": "Buy groceries",
+    "dueDate": "2025-10-13",
+    "duration": 30,
+    "tag": "Personal",
+    "createdAt": "2025-09-25T10:40:00Z",
+    "updatedAt": "2025-09-25T10:40:00Z"
+  },
+  {
+    "id": "task_1727893200_010",
+    "title": "Yoga class",
+    "dueDate": "2025-10-21",
+    "duration": 75,
+    "tag": "Health",
+    "createdAt": "2025-09-25T10:45:00Z",
+    "updatedAt": "2025-09-25T10:45:00Z"
+  },
+  {
+    "id": "task_1727893200_011",
+    "title": "Lab report submission",
+    "dueDate": "2025-10-25",
+    "duration": 150,
+    "tag": "Academic",
+    "createdAt": "2025-09-25T10:50:00Z",
+    "updatedAt": "2025-09-25T10:50:00Z"
+  },
+  {
+    "id": "task_1727893200_012",
+    "title": "Coffee meetup with study group",
+    "dueDate": "2025-10-14",
+    "duration": 60,
+    "tag": "Social",
+    "createdAt": "2025-09-25T10:55:00Z",
+    "updatedAt": "2025-09-25T10:55:00Z"
+  }
+]
