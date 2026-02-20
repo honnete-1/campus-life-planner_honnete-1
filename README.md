@@ -2,7 +2,7 @@
 
 > A responsive, accessible web application for managing student tasks and time. It is a mobile‑first, accessible Campus Life Planner that helps students plan tasks and events using durations, tags, sorting, and live regex search. The app demonstrates semantic HTML, responsive layouts, DOM manipulation, safe regex handling, localStorage persistence, and accessibility best practices.
 
-**Live Demo:** [\[GitHub Pages URL\] ](https://honnete-1.github.io/campus-life-planner_honnete-1/) 
+**Live Demo:** (https://honnete-1.github.io/campus-life-planner_honnete-1/) 
 **Video Demo:** (https://www.loom.com/share/ed2bef8797bb4b8eb6ddbd9fd664fb0b)
 
 ---
