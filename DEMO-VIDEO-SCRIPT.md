@@ -4,7 +4,7 @@
 
 ---
 
-## 🎬 Scene 1: Introduction (15 seconds)
+## Scene 1: Introduction (15 seconds)
 
 **[Screen: Landing on About section]**
 
@@ -17,7 +17,7 @@
 
 ---
 
-## 🎬 Scene 2: Add a Task (30 seconds)
+## Scene 2: Add a Task (30 seconds)
 
 **[Screen: Click "Add Task" tab]**
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 🎬 Scene 3: View Tasks & Sort (20 seconds)
+## Scene 3: View Tasks & Sort (20 seconds)
 
 **[Screen: My Tasks section]**
 
@@ -60,7 +60,7 @@
 
 ---
 
-## 🎬 Scene 4: Regex Search (30 seconds)
+## Scene 4: Regex Search (30 seconds)
 
 **[Screen: Search box in My Tasks]**
 
@@ -79,7 +79,7 @@
 
 ---
 
-## 🎬 Scene 5: Edit & Delete (20 seconds)
+## Scene 5: Edit & Delete (20 seconds)
 
 **[Screen: Tasks table]**
 
@@ -99,7 +99,7 @@
 
 ---
 
-## 🎬 Scene 6: Dashboard Stats (25 seconds)
+## Scene 6: Dashboard Stats (25 seconds)
 
 **[Screen: Click "Dashboard" tab]**
 
@@ -118,7 +118,7 @@
 
 ---
 
-## 🎬 Scene 7: Keyboard Navigation (20 seconds)
+## Scene 7: Keyboard Navigation (20 seconds)
 
 **[Screen: Any section]**
 
@@ -136,7 +136,7 @@
 
 ---
 
-## 🎬 Scene 8: Settings & Import/Export (25 seconds)
+## Scene 8: Settings & Import/Export (25 seconds)
 
 **[Screen: Settings tab]**
 
@@ -156,7 +156,7 @@
 
 ---
 
-## 🎬 Scene 9: Validation Demo (15 seconds)
+## Scene 9: Validation Demo (15 seconds)
 
 **[Screen: Go to Add Task]**
 
@@ -174,7 +174,7 @@
 
 ---
 
-## 🎬 Scene 10: Tests Page (10 seconds)
+## Scene 10: Tests Page (10 seconds)
 
 **[Screen: Open tests.html in new tab]**
 
@@ -188,7 +188,7 @@
 
 ---
 
-## 🎬 Scene 11: Closing (10 seconds)
+## Scene 11: Closing (10 seconds)
 
 **[Screen: Back to main app, show full interface]**
 
@@ -199,7 +199,7 @@
 
 ---
 
-## 📝 Recording Tips:
+## Recording Tips:
 
 1. **Preparation:**
    - Clear browser cache
@@ -222,14 +222,14 @@
    - Windows Game Bar (Win+G)
 
 4. **What to Show:**
-   - ✅ Add/edit/delete tasks
-   - ✅ Search with highlighting
-   - ✅ Sort functionality
-   - ✅ Dashboard stats
-   - ✅ Keyboard navigation
-   - ✅ Form validation
-   - ✅ Export/import
-   - ✅ tests.html
+   - Add/edit/delete tasks
+   - Search with highlighting
+   - Sort functionality
+   - Dashboard stats
+   - Keyboard navigation
+   - Form validation
+   - Export/import
+   - tests.html
 
 5. **What's Optional:**
    - Showing responsive on mobile

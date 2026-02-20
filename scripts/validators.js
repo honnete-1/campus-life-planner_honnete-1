@@ -1,21 +1,19 @@
-// validators.js - Regex patterns and validation for Campus Life Planner
-
 // Regex patterns for form validation
 // 1. Title - no leading/trailing spaces or double spaces
-export const TITLE_REGEX = /^\S(?:.*\S)?$/;
+export const title_regex= /^\S(?:.*\S)?$/;
 
 // 2. Duration - positive number with optional decimals (max 2 places)
-export const DURATION_REGEX = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+export const duration_regex = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
 
 // 3. Date - YYYY-MM-DD format
-export const DATE_REGEX = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+export const date_regex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
 // 4. Tag - letters, spaces, and hyphens only
-export const TAG_REGEX = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
+export const tag_regex= /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
 
 // 5. ADVANCED - Duplicate word detector using backreference
 // This uses \1 to match the same word twice (like "the the")
-export const DUPLICATE_WORD_REGEX = /\b(\w+)\s+\1\b/i;
+export const duplicate_word_regex = /\b(\w+)\s+\1\b/i;
 
 // Validate title field
 export function validateTitle(title) {
@@ -25,12 +23,12 @@ export function validateTitle(title) {
   }
   
   // Check regex pattern
-  if (!TITLE_REGEX.test(title)) {
+  if (!title_regex.test(title)) {
     return { valid: false, error: 'Title cannot have leading/trailing spaces or double spaces' };
   }
   
   // Check for duplicate words (just a warning, not an error)
-  const duplicateMatch = DUPLICATE_WORD_REGEX.exec(title);
+  const duplicateMatch = duplicate_word_regex.exec(title);
   if (duplicateMatch) {
     return { 
       valid: true, 
@@ -56,7 +54,7 @@ export function validateDuration(duration) {
     return { valid: false, error: 'Duration is required' };
   }
   
-  if (!DURATION_REGEX.test(duration)) {
+  if (!duration_regex.test(duration)) {
     return { valid: false, error: 'Duration must be a positive number' };
   }
   
@@ -79,7 +77,7 @@ export function validateDate(date) {
     return { valid: false, error: 'Date is required' };
   }
   
-  if (!DATE_REGEX.test(date)) {
+  if (!date_regex.test(date)) {
     return { valid: false, error: 'Date must be in YYYY-MM-DD format' };
   }
   
@@ -98,7 +96,7 @@ export function validateTag(tag) {
     return { valid: false, error: 'Tag is required' };
   }
   
-  if (!TAG_REGEX.test(tag)) {
+  if (!tag_regex.test(tag)) {
     return { valid: false, error: 'Tag can only contain letters, spaces, and hyphens' };
   }
   
@@ -174,10 +172,10 @@ export function sanitizeInput(str) {
 }
 
 // Export patterns for testing
-export const REGEX_PATTERNS = {
-  title: TITLE_REGEX,
-  duration: DURATION_REGEX,
-  date: DATE_REGEX,
-  tag: TAG_REGEX,
-  duplicateWord: DUPLICATE_WORD_REGEX
+export const regex_patterns = {
+  title: title_regex,
+  duration: duration_regex,
+  date: date_regex,
+  tag: tag_regex,
+  duplicateWord: duplicate_word_regex
 };

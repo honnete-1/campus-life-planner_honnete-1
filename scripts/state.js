@@ -1,4 +1,4 @@
-// state.js - Manages task data in memory
+// state.js file manages task data in memory
 
 // Global state - stores all tasks
 let tasks = [];

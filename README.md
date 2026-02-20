@@ -200,7 +200,7 @@ campus-planner/
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Option 1: GitHub Pages (Recommended)
 1. Push code to GitHub

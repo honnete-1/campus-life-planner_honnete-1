@@ -1,9 +1,6 @@
-/* ═══════════════════════════════════════════════════════════════════
-   CAMPUS LIFE PLANNER - APP.JS
-   Entry point for the application
-   ═══════════════════════════════════════════════════════════════════ */
+ // APP.JS: Entry point for the application
 
-import {
+ import {
   validateTitle,
   validateDuration,
   validateDate,
@@ -44,28 +41,24 @@ import {
   updateDashboardStats
 } from './ui.js';
 
-// Track if we're in edit mode
+// I am Tracking if we're in edit mode
 let editingTaskId = null;
 
-/* ───────────────────────────────────────────────────────────────────
-   SECTION NAVIGATION
-   ─────────────────────────────────────────────────────────────────── */
-
-/**
- * Switch between sections when nav tabs are clicked
- */
+ 
+  //  section navigation part
+  //  Switch between sections when nav tabs are clicked
 function initNavigation() {
   const navTabs = document.querySelectorAll('.nav-tab');
   const sections = document.querySelectorAll('.section');
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
   
-  // Handle nav tab clicks
+  // handling nav tab clicks
   navTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetSection = tab.dataset.section;
       
-      // Update active tab
+      // update active tab
       navTabs.forEach(t => {
         t.classList.remove('active');
         t.removeAttribute('aria-current');
@@ -73,7 +66,7 @@ function initNavigation() {
       tab.classList.add('active');
       tab.setAttribute('aria-current', 'page');
       
-      // Show target section, hide others
+      // I am Showing target section, hide others
       sections.forEach(section => {
         section.classList.remove('active');
       });
@@ -82,7 +75,7 @@ function initNavigation() {
       if (activeSection) {
         activeSection.classList.add('active');
         
-        // Focus on the section heading for screen readers
+        // I am focusing on the section heading for screen readers
         const heading = activeSection.querySelector('h2');
         if (heading) {
           heading.setAttribute('tabindex', '-1');
@@ -91,7 +84,7 @@ function initNavigation() {
         }
       }
       
-      // Close mobile menu after selection
+      // Closing mobile menu after selection
       if (window.innerWidth < 768) {
         mainNav.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
@@ -99,7 +92,7 @@ function initNavigation() {
     });
   });
   
-  // Handle mobile menu toggle
+  // handle mobile menu toggle
   if (navToggle) {
     navToggle.addEventListener('click', () => {
       const isOpen = mainNav.classList.toggle('open');
@@ -107,7 +100,7 @@ function initNavigation() {
     });
   }
   
-  // Close mobile menu when clicking outside
+  // I Close mobile menu when clicking outside
   document.addEventListener('click', (e) => {
     if (window.innerWidth < 768) {
       if (!mainNav.contains(e.target) && !navToggle.contains(e.target)) {
@@ -126,11 +119,8 @@ function initNavigation() {
   });
 }
 
-/* ───────────────────────────────────────────────────────────────────
-   SEARCH AND SORT (M4)
-   ─────────────────────────────────────────────────────────────────── */
-
-function initSearchAndSort() {
+//  Seach And sort part
+  function searchAndSort() {
   const searchInput = document.getElementById('search-input');
   const searchCase = document.getElementById('search-case');
   const sortSelect = document.getElementById('sort-select');
@@ -161,10 +151,8 @@ function initSearchAndSort() {
   }
 }
 
-/* ───────────────────────────────────────────────────────────────────
-   EDIT TASK (M4)
-   ─────────────────────────────────────────────────────────────────── */
-
+  //  Edit Task part
+    
 function startEditMode(taskId) {
   const task = getTaskById(taskId);
   if (!task) return;
@@ -228,11 +216,11 @@ document.addEventListener('tasks-updated', () => {
   loadAndRenderTasks();
 });
 
-/**
- * Enable keyboard shortcuts for quick section navigation
- * Alt+1 = About, Alt+2 = Dashboard, Alt+3 = Tasks, Alt+4 = Add, Alt+5 = Settings
- */
-function initKeyboardShortcuts() {
+
+//  Enable keyboard shortcuts for quick section navigation
+//  Alt+1 = About, Alt+2 = Dashboard, Alt+3 = Tasks, Alt+4 = Add, Alt+5 = Settings
+
+ function keyboardShortcuts() {
   const sectionMap = {
     '1': 'about',
     '2': 'dashboard',
@@ -255,9 +243,8 @@ function initKeyboardShortcuts() {
   });
 }
 
-/* ───────────────────────────────────────────────────────────────────
-   LOAD AND RENDER TASKS (M4)
-   ─────────────────────────────────────────────────────────────────── */
+  //  loaDing aNd rendering Tasks (M4)
+  
 
 function loadAndRenderTasks() {
   // Get current search and sort
@@ -338,7 +325,7 @@ function initFormValidation() {
         // Show warning if there's one
         if (result.warning) {
           const errorDiv = document.getElementById('title-error');
-          errorDiv.textContent = `⚠️ ${result.warning}`;
+          errorDiv.textContent = ` ${result.warning}`;
           errorDiv.style.color = '#f59e0b';
         }
       }
@@ -401,7 +388,7 @@ function initFormValidation() {
       const validation = validateTaskForm(formData);
       
       if (!validation.valid) {
-        // Show errors
+        // Showing errors
         if (validation.errors.title) {
           showError('task-title', validation.errors.title);
         }
@@ -437,16 +424,16 @@ function initFormValidation() {
           tagField.focus();
         }
       } else {
-        // Success! Save the task
+        // if Successful! Save the task
         if (editingTaskId) {
           // Update existing task
           updateTask(editingTaskId, formData);
-          formStatus.textContent = '✅ Task updated successfully!';
+          formStatus.textContent = ' Task updated successfully!';
           cancelEditMode();
         } else {
           // Add new task
           addTask(formData);
-          formStatus.textContent = '✅ Task added successfully!';
+          formStatus.textContent = ' Task added successfully!';
         }
         
         formStatus.className = 'form-status success';
@@ -459,13 +446,13 @@ function initFormValidation() {
         
         console.log('Form saved:', formData);
         
-        // Clear form and switch to tasks view
+        // I am clearing form and switch to tasks view
         setTimeout(() => {
           form.reset();
           formStatus.textContent = '';
           document.getElementById('duration-converted').textContent = '';
           
-          // Go to tasks section
+          // Going to tasks section
           const tasksTab = document.querySelector('[data-section="tasks"]');
           if (tasksTab) tasksTab.click();
         }, 1500);
@@ -473,7 +460,7 @@ function initFormValidation() {
     });
   }
   
-  // Cancel button
+  // on this pat I created Cancel button
   if (cancelBtn) {
     cancelBtn.addEventListener('click', () => {
       form.reset();
@@ -494,11 +481,9 @@ function initFormValidation() {
   }
 }
 
-/* ───────────────────────────────────────────────────────────────────
-   SETTINGS (M5/M6)
-   ─────────────────────────────────────────────────────────────────── */
 
-function initSettings() {
+  //  settings part
+  function initSettings() {
   const weeklyCap = document.getElementById('weekly-cap');
   const unitMinutes = document.getElementById('unit-minutes');
   const unitHours = document.getElementById('unit-hours');
@@ -507,7 +492,7 @@ function initSettings() {
   const clearBtn = document.getElementById('clear-data-btn');
   const settingsStatus = document.getElementById('settings-status');
   
-  // Load saved settings
+  //tying to load saved settings
   const settings = loadSettings();
   if (weeklyCap) {
     weeklyCap.value = settings.weeklyCap || 40;
@@ -516,7 +501,7 @@ function initSettings() {
     unitHours.checked = true;
   }
   
-  // Save weekly cap when changed
+  //  iam Saving weekly cap when changed
   if (weeklyCap) {
     weeklyCap.addEventListener('change', () => {
       const cap = parseInt(weeklyCap.value);
@@ -525,13 +510,13 @@ function initSettings() {
         settings.weeklyCap = cap;
         saveSettings(settings);
         
-        // Update cap display
+        // i am Updating cap display
         const capMaxEl = document.getElementById('cap-max');
         if (capMaxEl) {
           capMaxEl.textContent = cap;
         }
         
-        // Recalculate and show message
+        // i Recalculating and showig message
         loadAndRenderTasks();
         settingsStatus.textContent = `Weekly cap updated to ${cap} hours`;
         setTimeout(() => settingsStatus.textContent = '', 3000);
@@ -539,7 +524,7 @@ function initSettings() {
     });
   }
   
-  // Duration unit toggle
+  // Adding Duration unit toggle
   if (unitMinutes && unitHours) {
     const updateUnit = () => {
       const settings = loadSettings();
@@ -555,7 +540,7 @@ function initSettings() {
     unitHours.addEventListener('change', updateUnit);
   }
   
-  // Export JSON
+  // Exporting JSON
   if (exportBtn) {
     exportBtn.addEventListener('click', () => {
       const tasks = getTasks();
@@ -574,7 +559,7 @@ function initSettings() {
     });
   }
   
-  // Import JSON
+  // importing JSON
   if (importFile) {
     importFile.addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -585,14 +570,14 @@ function initSettings() {
         try {
           const imported = JSON.parse(event.target.result);
           
-          // Validate: must be an array
+          // i am validating whether it is an array
           if (!Array.isArray(imported)) {
             alert('Invalid file: Data must be an array of tasks');
             importFile.value = '';
             return;
           }
           
-          // Validate: check each task has required fields
+          // I am validating and checking whether each task has required fields
           const errors = [];
           imported.forEach((task, index) => {
             if (!task.title || typeof task.title !== 'string') {
@@ -616,7 +601,7 @@ function initSettings() {
             return;
           }
           
-          // Add missing fields (id, timestamps) if not present
+          // here  I am adding missing fields (id, timestamps) if not present
           const fixedTasks = imported.map(task => ({
             id: task.id || `task_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
             title: task.title,
@@ -627,7 +612,7 @@ function initSettings() {
             updatedAt: task.updatedAt || new Date().toISOString()
           }));
           
-          // Show preview and confirm
+          // On this part I am showing preview and confirming
           const message = `Import ${fixedTasks.length} tasks?\n\nThis will REPLACE all existing tasks.\n\nCurrent tasks: ${getTasks().length}\nNew tasks: ${fixedTasks.length}`;
           
           if (confirm(message)) {
@@ -647,11 +632,11 @@ function initSettings() {
       };
       
       reader.readAsText(file);
-      importFile.value = ''; // Reset file input
+      importFile.value = ''; 
     });
   }
   
-  // Clear all data
+  // I am Clearing all data
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
       if (confirm('Are you sure? This will delete ALL tasks permanently!')) {
@@ -667,22 +652,11 @@ function initSettings() {
     });
   }
 }
-
-/* ───────────────────────────────────────────────────────────────────
-   KEYBOARD SHORTCUTS
-   ─────────────────────────────────────────────────────────────────── */
-
-/* ───────────────────────────────────────────────────────────────────
-   INITIALIZATION
-   ─────────────────────────────────────────────────────────────────── */
-
-/**
- * Initialize the application when DOM is loaded
- */
-document.addEventListener('DOMContentLoaded', () => {
+//  I am Initializing the application when DOM is loaded
+ document.addEventListener('DOMContentLoaded', () => {
   console.log('Campus Life Planner - M5 Initialized');
   
-  // Load tasks from localStorage
+  // The tasks will load from localStorage
   const savedTasks = loadTasks();
   setTasks(savedTasks);
   
@@ -697,13 +671,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   
   // Set up keyboard shortcuts
-  initKeyboardShortcuts();
+  keyboardShortcuts();
   
   // Set up form validation (M3)
   initFormValidation();
   
   // Set up search and sort (M4)
-  initSearchAndSort();
+  searchAndSort();
   
   // Set up settings (M5/M6)
   initSettings();
@@ -711,10 +685,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   loadAndRenderTasks();
   
-  console.log('✅ Navigation ready');
-  console.log('✅ Keyboard shortcuts enabled (Alt+1 through Alt+5)');
-  console.log('✅ Form validation enabled (M3)');
-  console.log('✅ Search, sort, and CRUD enabled (M4)');
-  console.log('✅ Stats and cap tracking enabled (M5)');
-  console.log(`✅ Loaded ${savedTasks.length} tasks from storage`);
+  console.log('Navigation ready');
+  console.log('Keyboard shortcuts enabled (Alt+1 through Alt+5)');
+  console.log('Form validation enabled (M3)');
+  console.log('Search, sort, and CRUD enabled (M4)');
+  console.log('Stats and cap tracking enabled (M5)');
+  console.log(`Loaded ${savedTasks.length} tasks from storage`);
 });
